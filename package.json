@@ -19,6 +19,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "fetch": "^1.1.0",
+    "google-trends-api": "^4.9.2",
     "mongoose": "^6.10.0",
     "typescript": "^4.9.5"
   },
@@ -28,4 +29,3 @@
     "ts-node": "^10.9.1"
   }
 }
-

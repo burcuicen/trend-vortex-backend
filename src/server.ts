@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-
+import googleTrends from "./routes/google-trends-routes";
 dotenv.config();
 
 const app = express();
@@ -14,6 +14,8 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
   next();
 });
+
+app.use("/trends", googleTrends);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server is running");
