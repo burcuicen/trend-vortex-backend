@@ -42,7 +42,6 @@ GET /api/interest-over-time?keyword=technology
         "value": [26],
         "formattedValue": ["26"]
       }
-      // More data...
     ],
     "averages": []
   }

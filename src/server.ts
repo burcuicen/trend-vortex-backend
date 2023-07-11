@@ -15,7 +15,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/trends", googleTrends);
+app.use("/api", googleTrends);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server is running");
