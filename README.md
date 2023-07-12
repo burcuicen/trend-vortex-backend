@@ -6,45 +6,73 @@ This documentation provides an overview of the available routes for the Google T
 
 The base URL for all API requests is: `http://localhost:3000/api`
 
-## Routes
+## API Routes
 
-### GET /interest-over-time
+### 1. GET /interest-by-region
 
-Fetches the interest over time data for a given keyword.
+Fetches interest data by region.
 
-- **URL:** `/interest-over-time`
-- **Method:** GET
+Parameters:
+- `keyword` (required): The search term or keyword to retrieve interest data for.
+- `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
+- `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
+- `geo` (optional): The geographic location to retrieve data for. For example, `US` for United States.
+- `resolution` (optional): The level of geographic granularity. Possible values: `CITY`, `COUNTRY`, `REGION`.
 
-#### Parameters
+### 2. GET /interest-over-time
 
-| Name      | Type   | Description                |
-| --------- | ------ | -------------------------- |
-| `keyword` | string | The keyword to search for. |
+Fetches interest data over time.
 
-#### Example
+Parameters:
+- `keyword` (required): The search term or keyword to retrieve interest data for.
+- `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
+- `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
+- `geo` (optional): The geographic location to retrieve data for. For example, `US` for United States.
 
-**Request:**
+### 3. GET /real-time
 
-```http
-GET /api/interest-over-time?keyword=technology
-```
+Fetches real-time trending data.
 
-**Response:**
+Parameters:
+- `geo` (required): The geocode for a country. For example, `US` for United States or `FR` for France.
+- `hl` (optional): Preferred language code for results. Defaults to English.
+- `timezone` (optional): Preferred timezone. Defaults to the timezone difference from UTC to the current locale.
+- `category` (optional): A string corresponding to a particular category to query within. Possible values: `all`, `e` (Entertainment), `b` (Business), `t` (Science/Tech), `m` (Health), `s` (Sports), `h` (Top Stories).
 
-```json
-{
-  "default": {
-    "timelineData": [
-      {
-        "time": "1072915200",
-        "formattedTime": "Jan 2004",
-        "formattedAxisTime": "Jan 1, 2004",
-        "value": [26],
-        "formattedValue": ["26"]
-      }
-    ],
-    "averages": []
-  }
-}
-```
+### 4. GET /related-queries
 
+Fetches related queries for a keyword.
+
+Parameters:
+- `keyword` (required): The search term or keyword to retrieve related queries for.
+- `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
+- `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
+- `geo` (optional): The geographic location to retrieve data for. For example, `US` for United States.
+- `hl` (optional): Preferred language code for results. Defaults to English.
+- `timezone` (optional): Preferred timezone. Defaults to the timezone difference from UTC to the current locale.
+- `category` (optional): A number corresponding to a particular category to query within. See the category wiki for a complete list.
+
+### 5. GET /related-topics
+
+Fetches related topics for a keyword.
+
+Parameters:
+- `keyword` (required): The search term or keyword to retrieve related topics for.
+- `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
+- `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
+- `geo` (optional): The geographic location to retrieve data for. For example, `US` for United States.
+- `hl` (optional): Preferred language code for results. Defaults to English.
+- `timezone` (optional): Preferred timezone. Defaults to the timezone difference from UTC to the current locale.
+- `category` (optional): A number corresponding to a particular category to query within. See the category wiki for a complete list.
+
+### 6. GET /daily-trends
+
+Fetches daily trending stories.
+
+Parameters:
+- `geo` (required): The geocode for a country. For example, `US` for United States or `FR` for France.
+- `trendDate` (optional): The specific date to retrieve trending stories for. Format: `YYYY-MM-DD`.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
