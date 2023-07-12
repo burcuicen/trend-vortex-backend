@@ -1,18 +1,14 @@
+import { parseArrayValues } from "../utils";
+
 const googleTrends = require("google-trends-api");
 
 class GoogleTrendsService {
   // Method to fetch interest over time data
   public static async fetchInterestOverTime(keyword: string): Promise<any> {
     try {
-      let keywords = [] as string[];
-      const isArray = keyword.startsWith('Array(') && keyword.endsWith(')')
-      if(isArray) {
-        const innerKeywords = keyword.substring(6, keyword.length - 1);
-        keywords = innerKeywords.split(',').map((k) => k.trim());
-      }
-      const query = isArray ? { keyword: keywords } : { keyword };
-
-      const results = await googleTrends.interestOverTime(query);
+      const queryResult = parseArrayValues(keyword);
+      
+      const results = await googleTrends.interestOverTime({ keyword: queryResult });
 
       if (results) return JSON.parse(results);
     } catch (error) {
