@@ -4,7 +4,15 @@ class GoogleTrendsService {
   // Method to fetch interest over time data
   public static async fetchInterestOverTime(keyword: string): Promise<any> {
     try {
-      const results = await googleTrends.interestOverTime({ keyword });
+      let keywords = [] as string[];
+      const isArray = keyword.startsWith('Array(') && keyword.endsWith(')')
+      if(isArray) {
+        const innerKeywords = keyword.substring(6, keyword.length - 1);
+        keywords = innerKeywords.split(',').map((k) => k.trim());
+      }
+      const query = isArray ? { keyword: keywords } : { keyword };
+
+      const results = await googleTrends.interestOverTime(query);
 
       if (results) return JSON.parse(results);
     } catch (error) {
