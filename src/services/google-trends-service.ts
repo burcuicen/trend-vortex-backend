@@ -28,21 +28,21 @@ class GoogleTrendsService {
   public static async fetchInterestByRegion(keyword: string, startTime?: Date, endTime?: Date, geo?: string, resolution?: string): Promise<any> {
     try {
       const queryResult = parseArrayValues(keyword);
-  
+
       const options: any = { keyword: queryResult };
       if (startTime) options.startTime = startTime;
       if (endTime) options.endTime = endTime;
       if (geo) options.geo = geo;
       if (resolution) options.resolution = resolution;
-      
+
       const results = await googleTrends.interestByRegion(options);
-  
+
       if (results) return JSON.parse(results);
     } catch (error) {
       throw new Error("Google Trends API Error: Failed to fetch interest by region data from Google Trends API");
     }
   }
-  
+
   //Method to fetch daily trends data
   public static async fetchDailyTrends(geo: string, trendDate?: Date): Promise<any> {
     try {
@@ -62,21 +62,29 @@ class GoogleTrendsService {
     try {
       const options: any = { geo };
       if (hl) options.hl = hl;
-      if (timezone) options.timezone = timezone;    
-      if (category) options.category = category;   
+      if (timezone) options.timezone = timezone;
+      if (category) options.category = category;
       const results = await googleTrends.realTimeTrends(options);
-  
+
       if (results) return JSON.parse(results);
     } catch (error) {
       throw new Error("Google Trends API Error: Failed to fetch real-time trends data from Google Trends API");
     }
   }
-  
 
   // Method to fetch related queries data
-  public static async fetchRelatedQueries(keyword: string): Promise<any> {
+  public static async fetchRelatedQueries(keyword: string, startTime?: Date, endTime?: Date, geo?: string, hl?: string, timezone?: number, category?: number): Promise<any> {
     try {
-      const results = await googleTrends.relatedQueries({ keyword });
+      const results = await googleTrends.relatedQueries({
+        keyword,
+        startTime,
+        endTime,
+        geo,
+        hl,
+        timezone,
+        category,
+      });
+
       if (results) return JSON.parse(results);
     } catch (error) {
       throw new Error("Google Trends API Error: Failed to fetch related queries data from Google Trends API");
@@ -84,9 +92,17 @@ class GoogleTrendsService {
   }
 
   // Method to fetch related topics data
-  public static async fetchRelatedTopics(keyword: string): Promise<any> {
+  public static async fetchRelatedTopics(keyword: string, startTime?: Date, endTime?: Date, geo?: string, hl?: string, timezone?: number, category?: number): Promise<any> {
     try {
-      const results = await googleTrends.relatedTopics({ keyword });
+      const results = await googleTrends.relatedTopics({
+        keyword,
+        startTime,
+        endTime,
+        geo,
+        hl,
+        timezone,
+        category,
+      });
 
       if (results) return JSON.parse(results);
     } catch (error) {

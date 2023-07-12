@@ -52,10 +52,11 @@ class GoogleTrendsController {
   }
 
   public static async getRelatedQueries(req: Request, res: Response): Promise<void> {
-    const { keyword } = req.query;
+    const { keyword, startTime, endTime, geo, hl, timezone, category } = req.query;
 
     try {
-      const data = await GoogleTrendsService.fetchRelatedQueries(keyword as string);
+      const data = await GoogleTrendsService.fetchRelatedQueries(keyword as string, startTime as unknown as Date, endTime as unknown as Date, geo as string, hl as string, timezone as unknown as number, category as unknown as number);
+
       res.json(data);
     } catch (error) {
       console.error(error);
@@ -64,10 +65,11 @@ class GoogleTrendsController {
   }
 
   public static async getRelatedTopics(req: Request, res: Response): Promise<void> {
-    const { keyword } = req.query;
+    const { keyword, startTime, endTime, geo, hl, timezone, category } = req.query;
 
     try {
-      const data = await GoogleTrendsService.fetchRelatedTopics(keyword as string);
+      const data = await GoogleTrendsService.fetchRelatedTopics(keyword as string, startTime as unknown as Date, endTime as unknown as Date, geo as string, hl as string, timezone as unknown as number, category as unknown as number);
+
       res.json(data);
     } catch (error) {
       console.error(error);
