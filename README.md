@@ -1,6 +1,6 @@
-# Google Trends API Documentation
+# Trend Vortex Backend Documentation
 
-This documentation provides an overview of the available routes for the Google Trends API.
+This project provides a Node.js service for interacting with the Google Trends API. It allows you to fetch various types of data such as interest over time, interest by region, daily trends, real-time trends, related queries, and related topics.
 
 ## Base URL
 
@@ -8,7 +8,7 @@ The base URL for all API requests is: `http://localhost:3000/api`
 
 ## API Routes
 
-### 1. GET /interest-by-region
+### GET /interest-by-region
 
 Fetches interest data by region.
 
@@ -19,7 +19,7 @@ Parameters:
 - `geo` (optional): The geographic location to retrieve data for. For example, `US` for United States.
 - `resolution` (optional): The level of geographic granularity. Possible values: `CITY`, `COUNTRY`, `REGION`.
 
-### 2. GET /interest-over-time
+### GET /interest-over-time
 
 Fetches interest data over time.
 
@@ -29,7 +29,7 @@ Parameters:
 - `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
 - `geo` (optional): The geographic location to retrieve data for. For example, `US` for United States.
 
-### 3. GET /real-time
+### GET /real-time
 
 Fetches real-time trending data.
 
@@ -39,7 +39,7 @@ Parameters:
 - `timezone` (optional): Preferred timezone. Defaults to the timezone difference from UTC to the current locale.
 - `category` (optional): A string corresponding to a particular category to query within. Possible values: `all`, `e` (Entertainment), `b` (Business), `t` (Science/Tech), `m` (Health), `s` (Sports), `h` (Top Stories).
 
-### 4. GET /related-queries
+### GET /related-queries
 
 Fetches related queries for a keyword.
 
@@ -52,7 +52,7 @@ Parameters:
 - `timezone` (optional): Preferred timezone. Defaults to the timezone difference from UTC to the current locale.
 - `category` (optional): A number corresponding to a particular category to query within. See the category wiki for a complete list.
 
-### 5. GET /related-topics
+### GET /related-topics
 
 Fetches related topics for a keyword.
 
@@ -65,7 +65,7 @@ Parameters:
 - `timezone` (optional): Preferred timezone. Defaults to the timezone difference from UTC to the current locale.
 - `category` (optional): A number corresponding to a particular category to query within. See the category wiki for a complete list.
 
-### 6. GET /daily-trends
+### GET /daily-trends
 
 Fetches daily trending stories.
 
@@ -73,6 +73,3 @@ Parameters:
 - `geo` (required): The geocode for a country. For example, `US` for United States or `FR` for France.
 - `trendDate` (optional): The specific date to retrieve trending stories for. Format: `YYYY-MM-DD`.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
