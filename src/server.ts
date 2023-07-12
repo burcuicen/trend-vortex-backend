@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import mongoose from "mongoose";
+
 import googleTrends from "./routes/google-trends-routes";
 dotenv.config();
 
@@ -14,6 +16,19 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
   next();
 });
+const mongodbUri = process.env.MONGODB_URI;
+if (mongodbUri) {
+  mongoose
+    .connect(mongodbUri, {})
+    .then(() => {
+      console.log("Connected to MongoDB");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+} else {
+  console.error("MONGODB_URI environment variable not defined");
+}
 
 app.use("/api", googleTrends);
 
