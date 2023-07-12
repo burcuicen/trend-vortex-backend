@@ -58,6 +58,20 @@ class GoogleTrendsService {
       throw new Error("Google Trends API Error: Failed to fetch daily trends data from Google Trends API");
     }
   }
+  public static async fetchRealTimeTrends(geo: string, hl?: string, timezone?: number, category?: string): Promise<any> {
+    try {
+      const options: any = { geo };
+      if (hl) options.hl = hl;
+      if (timezone) options.timezone = timezone;    
+      if (category) options.category = category;   
+      const results = await googleTrends.realTimeTrends(options);
+  
+      if (results) return JSON.parse(results);
+    } catch (error) {
+      throw new Error("Google Trends API Error: Failed to fetch real-time trends data from Google Trends API");
+    }
+  }
+  
 
   // Method to fetch related queries data
   public static async fetchRelatedQueries(keyword: string): Promise<any> {
