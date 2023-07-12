@@ -6,4 +6,11 @@ export function parseArrayValues(value: string): string | string[] {
   }
   return value;
 }
+export function trendDateChecker(trendDate: Date) {
+  if (trendDate > new Date()) throw new Error("Invalid trendDate: Cannot query for a future date");
+  const currentDate = new Date();
+  const timeDiff = Math.abs(currentDate.getTime() - trendDate.getTime());
+  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  if (diffDays > 15) throw new Error("Invalid trendDate: Cannot query for a date more than 15 days in the past");
+}
 

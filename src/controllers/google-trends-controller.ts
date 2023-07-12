@@ -25,6 +25,19 @@ class GoogleTrendsController {
       res.status(500).json({ error: "Controller Error: Failed to fetch interest by region data from Google Trends API" });
     }
   }
+  public static async getDailyTrends(req: Request, res: Response): Promise<void> {
+    const { geo, trendDate } = req.query;
+
+    let parsedTrendDate: Date | undefined;
+    if (trendDate) parsedTrendDate = new Date(trendDate as string);
+    try {
+      const data = await GoogleTrendsService.fetchDailyTrends(geo as string, parsedTrendDate);
+      res.json(data);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Controller Error: Failed to fetch daily trends data from Google Trends API" });
+    }
+  }
 
   public static async getRelatedQueries(req: Request, res: Response): Promise<void> {
     const { keyword } = req.query;

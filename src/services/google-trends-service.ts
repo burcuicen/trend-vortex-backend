@@ -1,4 +1,4 @@
-import { parseArrayValues } from "../utils";
+import { parseArrayValues, trendDateChecker } from "../utils";
 
 const googleTrends = require("google-trends-api");
 
@@ -7,7 +7,7 @@ class GoogleTrendsService {
   public static async fetchInterestOverTime(keyword: string): Promise<any> {
     try {
       const queryResult = parseArrayValues(keyword);
-      
+
       const results = await googleTrends.interestOverTime({ keyword: queryResult });
 
       if (results) return JSON.parse(results);
@@ -24,6 +24,21 @@ class GoogleTrendsService {
       if (results) return JSON.parse(results);
     } catch (error) {
       throw new Error("Google Trends API Error: Failed to fetch interest by region data from Google Trends API");
+    }
+  }
+  //Method to fetch daily trends data
+  public static async fetchDailyTrends(geo: string, trendDate?: Date): Promise<any> {
+    try {
+      const options: any = { geo };
+      if (trendDate) {
+        trendDateChecker(trendDate);
+        options.trendDate = trendDate;
+      }
+      const results = await googleTrends.dailyTrends(options);
+
+      if (results) return JSON.parse(results);
+    } catch (error) {
+      throw new Error("Google Trends API Error: Failed to fetch daily trends data from Google Trends API");
     }
   }
 
