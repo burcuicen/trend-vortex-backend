@@ -3,16 +3,17 @@ import GoogleTrendsService from "../services/google-trends-service";
 
 class GoogleTrendsController {
   public static async getInterestOverTime(req: Request, res: Response): Promise<void> {
-    const { keyword } = req.query;
-
+    const { keyword, startTime, endTime, geo } = req.query;
+  
     try {
-      const data = await GoogleTrendsService.fetchInterestOverTime(keyword as string);
+      const data = await GoogleTrendsService.fetchInterestOverTime(keyword as string, startTime as unknown as Date, endTime as unknown as Date, geo as string);
       res.json(data);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Controller Error: Failed to fetch interest over time data from Google Trends API" });
     }
   }
+  
 
   public static async getInterestByRegion(req: Request, res: Response): Promise<void> {
     const { keyword } = req.query;

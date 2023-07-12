@@ -4,11 +4,19 @@ const googleTrends = require("google-trends-api");
 
 class GoogleTrendsService {
   // Method to fetch interest over time data
-  public static async fetchInterestOverTime(keyword: string): Promise<any> {
+  public static async fetchInterestOverTime(keyword: string, startTime?: Date, endTime?: Date, geo?: string): Promise<any> {
     try {
       const queryResult = parseArrayValues(keyword);
 
-      const results = await googleTrends.interestOverTime({ keyword: queryResult });
+      const options: any = { keyword: queryResult };
+
+      if (startTime) options.startTime = startTime;
+
+      if (endTime) options.endTime = endTime;
+
+      if (geo) options.geo = geo;
+
+      const results = await googleTrends.interestOverTime(options);
 
       if (results) return JSON.parse(results);
     } catch (error) {
