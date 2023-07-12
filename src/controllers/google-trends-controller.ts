@@ -16,16 +16,17 @@ class GoogleTrendsController {
   
 
   public static async getInterestByRegion(req: Request, res: Response): Promise<void> {
-    const { keyword } = req.query;
-
+    const { keyword, startTime, endTime, geo, resolution } = req.query;
+  
     try {
-      const data = await GoogleTrendsService.fetchInterestByRegion(keyword as string);
+      const data = await GoogleTrendsService.fetchInterestByRegion(keyword as string, startTime as unknown as Date, endTime as unknown as Date, geo as string, resolution as string);
       res.json(data);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Controller Error: Failed to fetch interest by region data from Google Trends API" });
     }
   }
+  
   public static async getDailyTrends(req: Request, res: Response): Promise<void> {
     const { geo, trendDate } = req.query;
 
