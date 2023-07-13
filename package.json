@@ -2,12 +2,12 @@
   "name": "trend-vortex-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
     "dev": "nodemon -L",
-    "start:dev": "ts-node src/server.ts"
+    "start:dev": "ts-node src/server.ts",
+    "heroku-postbuild": "tsc"
   },
   "author": "Burcu İçen",
   "license": "ISC",
@@ -33,3 +33,4 @@
     "ts-node": "^10.9.1"
   }
 }
+
