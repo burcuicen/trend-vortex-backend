@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 import googleTrends from "./routes/google-trends-routes";
 dotenv.config();
@@ -29,6 +31,29 @@ if (mongodbUri) {
 } else {
   console.error("MONGODB_URI environment variable not defined");
 }
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Trend Vortex API",
+      version: "1.0.0",
+      description: "Trend Vortex API",
+      contact: {
+        name: "Burcu İçen",
+      },
+    },
+    servers: [
+      {
+        url: process.env.BASE_URL || "http://localhost:3000",
+      },
+    ],
+  },
+  apis: [`${__dirname}/routes/*.ts`],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/api", googleTrends);
 
