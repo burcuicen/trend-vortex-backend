@@ -49,7 +49,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: [path.resolve(__dirname, "./routes/google-trends-routes.ts")],
+  apis: ["./dist/routes/google-trends-routes.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
