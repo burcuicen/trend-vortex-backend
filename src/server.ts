@@ -32,6 +32,10 @@ if (mongodbUri) {
 
 app.use("/api", googleTrends);
 
+app.get("/", (req, res) => {
+  res.send("Trend Vortex API");
+});
+
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server is running");
 });
