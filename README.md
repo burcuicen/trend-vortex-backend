@@ -4,7 +4,8 @@ This project provides a Node.js service for interacting with the Google Trends A
 
 ## Base URL
 
-The base URL for all API requests is: `http://localhost:3000/api`
+The base URL for all API requests is: `https://trend-vortex-backend.herokuapp.com/api`
+The swagger documentation for the API can be found at: `https://trend-vortex-backend.herokuapp.com/api-docs`
 
 ## API Routes
 
@@ -13,6 +14,7 @@ The base URL for all API requests is: `http://localhost:3000/api`
 Fetches interest data by region.
 
 Parameters:
+
 - `keyword` (required): The search term or keyword to retrieve interest data for.
 - `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
 - `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
@@ -24,6 +26,7 @@ Parameters:
 Fetches interest data over time.
 
 Parameters:
+
 - `keyword` (required): The search term or keyword to retrieve interest data for.
 - `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
 - `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
@@ -34,6 +37,7 @@ Parameters:
 Fetches real-time trending data.
 
 Parameters:
+
 - `geo` (required): The geocode for a country. For example, `US` for United States or `FR` for France.
 - `hl` (optional): Preferred language code for results. Defaults to English.
 - `timezone` (optional): Preferred timezone. Defaults to the timezone difference from UTC to the current locale.
@@ -44,6 +48,7 @@ Parameters:
 Fetches related queries for a keyword.
 
 Parameters:
+
 - `keyword` (required): The search term or keyword to retrieve related queries for.
 - `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
 - `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
@@ -57,6 +62,7 @@ Parameters:
 Fetches related topics for a keyword.
 
 Parameters:
+
 - `keyword` (required): The search term or keyword to retrieve related topics for.
 - `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
 - `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
@@ -70,6 +76,7 @@ Parameters:
 Fetches daily trending stories.
 
 Parameters:
+
 - `geo` (required): The geocode for a country. For example, `US` for United States or `FR` for France.
 - `trendDate` (optional): The specific date to retrieve trending stories for. Format: `YYYY-MM-DD`.
 
