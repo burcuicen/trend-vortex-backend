@@ -4,7 +4,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-const path = require("path");
 
 import googleTrends from "./routes/google-trends-routes";
 dotenv.config();
@@ -45,7 +44,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: process.env.BASE_URL || "http://localhost:3000",
+        url: "http://localhost:3000",
       },
     ],
   },

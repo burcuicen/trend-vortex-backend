@@ -9,7 +9,6 @@ var cors_1 = __importDefault(require("cors"));
 var mongoose_1 = __importDefault(require("mongoose"));
 var swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 var swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
-var path = require("path");
 var google_trends_routes_1 = __importDefault(require("./routes/google-trends-routes"));
 dotenv_1.default.config();
 var app = (0, express_1.default)();
@@ -49,7 +48,7 @@ var swaggerOptions = {
         },
         servers: [
             {
-                url: "http://localhost:3000" || process.env.BASE_URL,
+                url: "http://localhost:3000",
             },
         ],
     },
