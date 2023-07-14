@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import GoogleTrendsService from "../services/google-trends-service";
+import { GoogleTrendsService } from "../services/google-trends-service";
 
 class GoogleTrendsController {
   public static async getInterestOverTime(req: Request, res: Response): Promise<void> {
@@ -21,7 +21,6 @@ class GoogleTrendsController {
       const data = await GoogleTrendsService.fetchInterestByRegion(keyword as string, startTime as unknown as Date, endTime as unknown as Date, geo as string, resolution as string);
       res.json(data);
     } catch (error) {
-      console.error(error);
       res.status(500).json({ error: "Controller Error: Failed to fetch interest by region data from Google Trends API" });
     }
   }

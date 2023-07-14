@@ -35,11 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var google_trends_service_1 = __importDefault(require("../services/google-trends-service"));
+var google_trends_service_1 = require("../services/google-trends-service");
 var GoogleTrendsController = /** @class */ (function () {
     function GoogleTrendsController() {
     }
@@ -53,7 +50,7 @@ var GoogleTrendsController = /** @class */ (function () {
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, google_trends_service_1.default.fetchInterestOverTime(keyword, startTime, endTime, geo)];
+                        return [4 /*yield*/, google_trends_service_1.GoogleTrendsService.fetchInterestOverTime(keyword, startTime, endTime, geo)];
                     case 2:
                         data = _b.sent();
                         res.json(data);
@@ -78,14 +75,13 @@ var GoogleTrendsController = /** @class */ (function () {
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, google_trends_service_1.default.fetchInterestByRegion(keyword, startTime, endTime, geo, resolution)];
+                        return [4 /*yield*/, google_trends_service_1.GoogleTrendsService.fetchInterestByRegion(keyword, startTime, endTime, geo, resolution)];
                     case 2:
                         data = _b.sent();
                         res.json(data);
                         return [3 /*break*/, 4];
                     case 3:
                         error_2 = _b.sent();
-                        console.error(error_2);
                         res.status(500).json({ error: "Controller Error: Failed to fetch interest by region data from Google Trends API" });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
@@ -105,7 +101,7 @@ var GoogleTrendsController = /** @class */ (function () {
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, google_trends_service_1.default.fetchDailyTrends(geo, parsedTrendDate)];
+                        return [4 /*yield*/, google_trends_service_1.GoogleTrendsService.fetchDailyTrends(geo, parsedTrendDate)];
                     case 2:
                         data = _b.sent();
                         res.json(data);
@@ -130,7 +126,7 @@ var GoogleTrendsController = /** @class */ (function () {
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, google_trends_service_1.default.fetchRealTimeTrends(geo, hl, timezone, category)];
+                        return [4 /*yield*/, google_trends_service_1.GoogleTrendsService.fetchRealTimeTrends(geo, hl, timezone, category)];
                     case 2:
                         data = _b.sent();
                         res.json(data);
@@ -155,7 +151,7 @@ var GoogleTrendsController = /** @class */ (function () {
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, google_trends_service_1.default.fetchRelatedQueries(keyword, startTime, endTime, geo, hl, timezone, category)];
+                        return [4 /*yield*/, google_trends_service_1.GoogleTrendsService.fetchRelatedQueries(keyword, startTime, endTime, geo, hl, timezone, category)];
                     case 2:
                         data = _b.sent();
                         res.json(data);
@@ -180,7 +176,7 @@ var GoogleTrendsController = /** @class */ (function () {
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, google_trends_service_1.default.fetchRelatedTopics(keyword, startTime, endTime, geo, hl, timezone, category)];
+                        return [4 /*yield*/, google_trends_service_1.GoogleTrendsService.fetchRelatedTopics(keyword, startTime, endTime, geo, hl, timezone, category)];
                     case 2:
                         data = _b.sent();
                         res.json(data);

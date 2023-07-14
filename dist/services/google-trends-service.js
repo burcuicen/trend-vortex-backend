@@ -36,11 +36,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GoogleTrendsService = void 0;
 var utils_1 = require("../utils");
-var googleTrends = require("google-trends-api");
+var google_api_service_1 = require("../services/google-api-service");
 var GoogleTrendsService = /** @class */ (function () {
     function GoogleTrendsService() {
     }
+    GoogleTrendsService.googleAPIErrorHandler = function (result, method) {
+        return __awaiter(this, void 0, void 0, function () {
+            var counterRequest, finalResult;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        counterRequest = 0;
+                        finalResult = result;
+                        _a.label = 1;
+                    case 1:
+                        if (!(typeof finalResult === "string")) return [3 /*break*/, 3];
+                        counterRequest++;
+                        console.log("counyter", counterRequest);
+                        return [4 /*yield*/, method];
+                    case 2:
+                        finalResult = _a.sent();
+                        if (counterRequest > 10)
+                            throw new Error();
+                        return [3 /*break*/, 1];
+                    case 3: return [2 /*return*/, finalResult];
+                }
+            });
+        });
+    };
     // Method to fetch interest over time data
     GoogleTrendsService.fetchInterestOverTime = function (keyword, startTime, endTime, geo) {
         return __awaiter(this, void 0, void 0, function () {
@@ -48,7 +73,7 @@ var GoogleTrendsService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _a.trys.push([0, 3, , 4]);
                         queryResult = (0, utils_1.parseArrayValues)(keyword);
                         options = { keyword: queryResult };
                         if (startTime)
@@ -57,16 +82,19 @@ var GoogleTrendsService = /** @class */ (function () {
                             options.endTime = endTime;
                         if (geo)
                             options.geo = geo;
-                        return [4 /*yield*/, googleTrends.interestOverTime(options)];
+                        return [4 /*yield*/, google_api_service_1.GoogleAPI.fetchInterestOverTimeFromGoogle(options)];
                     case 1:
                         results = _a.sent();
-                        if (results)
-                            return [2 /*return*/, JSON.parse(results)];
-                        return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.googleAPIErrorHandler(results, google_api_service_1.GoogleAPI.fetchInterestOverTimeFromGoogle(options))];
                     case 2:
+                        _a.sent();
+                        if (results)
+                            return [2 /*return*/, results];
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_1 = _a.sent();
                         throw new Error("Google Trends API Error: Failed to fetch interest over time data from Google Trends API");
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -78,7 +106,7 @@ var GoogleTrendsService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _a.trys.push([0, 3, , 4]);
                         queryResult = (0, utils_1.parseArrayValues)(keyword);
                         options = { keyword: queryResult };
                         if (startTime)
@@ -89,16 +117,19 @@ var GoogleTrendsService = /** @class */ (function () {
                             options.geo = geo;
                         if (resolution)
                             options.resolution = resolution;
-                        return [4 /*yield*/, googleTrends.interestByRegion(options)];
+                        return [4 /*yield*/, google_api_service_1.GoogleAPI.fetchInterestByRegionFromGoogle(options)];
                     case 1:
                         results = _a.sent();
-                        if (results)
-                            return [2 /*return*/, JSON.parse(results)];
-                        return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.googleAPIErrorHandler(results, google_api_service_1.GoogleAPI.fetchInterestByRegionFromGoogle(options))];
                     case 2:
+                        results = _a.sent();
+                        if (results)
+                            return [2 /*return*/, results];
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_2 = _a.sent();
                         throw new Error("Google Trends API Error: Failed to fetch interest by region data from Google Trends API");
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -110,22 +141,25 @@ var GoogleTrendsService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _a.trys.push([0, 3, , 4]);
                         options = { geo: geo };
                         if (trendDate) {
                             (0, utils_1.trendDateChecker)(trendDate);
                             options.trendDate = trendDate;
                         }
-                        return [4 /*yield*/, googleTrends.dailyTrends(options)];
+                        return [4 /*yield*/, google_api_service_1.GoogleAPI.fetchDailyTrendsFromGoogle(options)];
                     case 1:
                         results = _a.sent();
-                        if (results)
-                            return [2 /*return*/, JSON.parse(results)];
-                        return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.googleAPIErrorHandler(results, google_api_service_1.GoogleAPI.fetchDailyTrendsFromGoogle(options))];
                     case 2:
+                        _a.sent();
+                        if (results)
+                            return [2 /*return*/, results];
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_3 = _a.sent();
                         throw new Error("Google Trends API Error: Failed to fetch daily trends data from Google Trends API");
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -136,7 +170,7 @@ var GoogleTrendsService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _a.trys.push([0, 3, , 4]);
                         options = { geo: geo };
                         if (hl)
                             options.hl = hl;
@@ -144,16 +178,19 @@ var GoogleTrendsService = /** @class */ (function () {
                             options.timezone = timezone;
                         if (category)
                             options.category = category;
-                        return [4 /*yield*/, googleTrends.realTimeTrends(options)];
+                        return [4 /*yield*/, google_api_service_1.GoogleAPI.fetchRealTimeTrendsFromGoogle(options)];
                     case 1:
                         results = _a.sent();
-                        if (results)
-                            return [2 /*return*/, JSON.parse(results)];
-                        return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.googleAPIErrorHandler(results, google_api_service_1.GoogleAPI.fetchRealTimeTrendsFromGoogle(options))];
                     case 2:
+                        _a.sent();
+                        if (results)
+                            return [2 /*return*/, results];
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_4 = _a.sent();
                         throw new Error("Google Trends API Error: Failed to fetch real-time trends data from Google Trends API");
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -161,29 +198,25 @@ var GoogleTrendsService = /** @class */ (function () {
     // Method to fetch related queries data
     GoogleTrendsService.fetchRelatedQueries = function (keyword, startTime, endTime, geo, hl, timezone, category) {
         return __awaiter(this, void 0, void 0, function () {
-            var results, error_5;
+            var options, results, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, googleTrends.relatedQueries({
-                                keyword: keyword,
-                                startTime: startTime,
-                                endTime: endTime,
-                                geo: geo,
-                                hl: hl,
-                                timezone: timezone,
-                                category: category,
-                            })];
+                        _a.trys.push([0, 3, , 4]);
+                        options = { keyword: keyword, startTime: startTime, endTime: endTime, geo: geo, hl: hl, timezone: timezone, category: category };
+                        return [4 /*yield*/, google_api_service_1.GoogleAPI.fetchRelatedQueriesFromGoogle(options)];
                     case 1:
                         results = _a.sent();
-                        if (results)
-                            return [2 /*return*/, JSON.parse(results)];
-                        return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.googleAPIErrorHandler(results, google_api_service_1.GoogleAPI.fetchRelatedQueriesFromGoogle(options))];
                     case 2:
+                        _a.sent();
+                        if (results)
+                            return [2 /*return*/, results];
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_5 = _a.sent();
                         throw new Error("Google Trends API Error: Failed to fetch related queries data from Google Trends API");
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -191,33 +224,29 @@ var GoogleTrendsService = /** @class */ (function () {
     // Method to fetch related topics data
     GoogleTrendsService.fetchRelatedTopics = function (keyword, startTime, endTime, geo, hl, timezone, category) {
         return __awaiter(this, void 0, void 0, function () {
-            var results, error_6;
+            var options, results, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, googleTrends.relatedTopics({
-                                keyword: keyword,
-                                startTime: startTime,
-                                endTime: endTime,
-                                geo: geo,
-                                hl: hl,
-                                timezone: timezone,
-                                category: category,
-                            })];
+                        _a.trys.push([0, 3, , 4]);
+                        options = { keyword: keyword, startTime: startTime, endTime: endTime, geo: geo, hl: hl, timezone: timezone, category: category };
+                        return [4 /*yield*/, google_api_service_1.GoogleAPI.fetchRelatedTopicsFromGoogle(options)];
                     case 1:
                         results = _a.sent();
-                        if (results)
-                            return [2 /*return*/, JSON.parse(results)];
-                        return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.googleAPIErrorHandler(results, google_api_service_1.GoogleAPI.fetchRelatedTopicsFromGoogle(options))];
                     case 2:
+                        _a.sent();
+                        if (results)
+                            return [2 /*return*/, results];
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_6 = _a.sent();
                         throw new Error("Google Trends API Error: Failed to fetch related topics data from Google Trends API");
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
     return GoogleTrendsService;
 }());
-exports.default = GoogleTrendsService;
+exports.GoogleTrendsService = GoogleTrendsService;
