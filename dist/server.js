@@ -10,6 +10,7 @@ var mongoose_1 = __importDefault(require("mongoose"));
 var swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 var swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 var google_trends_routes_1 = __importDefault(require("./routes/google-trends-routes"));
+var auth_routes_1 = __importDefault(require("./routes/auth-routes"));
 dotenv_1.default.config();
 var app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -48,15 +49,17 @@ var swaggerOptions = {
         },
         servers: [
             {
+                //url: process.env.BASE_URL || "http://localhost:3000",
                 url: "http://localhost:3000",
             },
         ],
     },
-    apis: ["./dist/routes/google-trends-routes.js"],
+    apis: ["./dist/routes/*.js"],
 };
 var swaggerDocs = (0, swagger_jsdoc_1.default)(swaggerOptions);
 app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
 app.use("/api", google_trends_routes_1.default);
+app.use("/auth", auth_routes_1.default);
 app.get("/", function (req, res) {
     res.send("Trend Vortex API");
 });

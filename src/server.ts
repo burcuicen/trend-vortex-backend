@@ -4,18 +4,24 @@ import cors from "cors";
 import mongoose from "mongoose";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+const bodyParser = require("body-parser");
 
 import googleTrends from "./routes/google-trends-routes";
+import authRoutes from "./routes/auth-routes";
+
 dotenv.config();
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
   res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "content-type, Authorization");
+
   next();
 });
 const mongodbUri = process.env.MONGODB_URI;
@@ -45,10 +51,20 @@ const swaggerOptions = {
     servers: [
       {
         url: process.env.BASE_URL || "http://localhost:3000",
+        //url: "http://localhost:3000",
       },
     ],
+    components: {
+      securitySchemes: {
+        Bearer: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
   },
-  apis: ["./dist/routes/google-trends-routes.js"],
+  apis: ["./dist/routes/*.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -56,6 +72,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/api", googleTrends);
+app.use("/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Trend Vortex API");

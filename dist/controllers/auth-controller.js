@@ -39,87 +39,75 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var bcrypt_1 = __importDefault(require("bcrypt"));
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var user_1 = __importDefault(require("../models/user"));
-var SALT_ROUNDS = 10;
-var JWT_SECRET = process.env.SECRET_KEY || "secret";
-var AuthService = /** @class */ (function () {
-    function AuthService() {
+var auth_service_1 = __importDefault(require("../services/auth-service"));
+var AuthController = /** @class */ (function () {
+    function AuthController() {
     }
-    AuthService.register = function (username, password, email) {
+    AuthController.register = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var hashedPassword, user, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, bcrypt_1.default.hash(password, SALT_ROUNDS)];
-                    case 1:
-                        hashedPassword = _a.sent();
-                        return [4 /*yield*/, user_1.default.create({ username: username, password: hashedPassword, email: email })];
-                    case 2:
-                        user = _a.sent();
-                        return [2 /*return*/, user];
-                    case 3:
-                        error_1 = _a.sent();
-                        throw new Error("Failed to register user");
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    AuthService.login = function (username, password) {
-        return __awaiter(this, void 0, void 0, function () {
-            var user, isPasswordValid, token, error_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, user_1.default.findOne({ username: username })];
-                    case 1:
-                        user = _a.sent();
-                        if (!user)
-                            throw new Error("User not found");
-                        return [4 /*yield*/, bcrypt_1.default.compare(password, user.password)];
-                    case 2:
-                        isPasswordValid = _a.sent();
-                        if (!isPasswordValid)
-                            throw new Error("Invalid password");
-                        token = jsonwebtoken_1.default.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
-                        return [2 /*return*/, token];
-                    case 3:
-                        error_2 = _a.sent();
-                        throw new Error("Failed to login");
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    AuthService.getUserFromToken = function (req) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function () {
-            var token, decodedToken, user, error_3;
+            var _a, username, password, email, user, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
-                        token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
-                        if (!token)
-                            return [2 /*return*/, null];
-                        decodedToken = jsonwebtoken_1.default.verify(token, JWT_SECRET);
-                        return [4 /*yield*/, user_1.default.findById(decodedToken.userId)];
+                        _a = req.body, username = _a.username, password = _a.password, email = _a.email;
+                        return [4 /*yield*/, auth_service_1.default.register(username, password, email)];
                     case 1:
                         user = _b.sent();
-                        return [2 /*return*/, user];
+                        res.status(201).json(user);
+                        return [3 /*break*/, 3];
                     case 2:
-                        error_3 = _b.sent();
-                        throw new Error("Failed to get user from token");
+                        error_1 = _b.sent();
+                        res.status(500).json({ message: error_1.message });
+                        return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    return AuthService;
+    AuthController.login = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, username, password, token, error_2;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 2, , 3]);
+                        _a = req.body, username = _a.username, password = _a.password;
+                        return [4 /*yield*/, auth_service_1.default.login(username, password)];
+                    case 1:
+                        token = _b.sent();
+                        res.status(200).json({ token: token });
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _b.sent();
+                        res.status(500).json({ message: error_2.message });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AuthController.getUser = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, auth_service_1.default.getUserFromToken(req)];
+                    case 1:
+                        user = _a.sent();
+                        res.status(200).json(user);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_3 = _a.sent();
+                        res.status(500).json({ message: error_3.message });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return AuthController;
 }());
-exports.default = AuthService;
+exports.default = AuthController;
