@@ -2,9 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 const bodyParser = require("body-parser");
+import { swaggerDocs } from "./swagger-config";
 
 import googleTrends from "./routes/google-trends-routes";
 import authRoutes from "./routes/auth-routes";
@@ -37,37 +37,6 @@ if (mongodbUri) {
 } else {
   console.error("MONGODB_URI environment variable not defined");
 }
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Trend Vortex API",
-      version: "1.0.0",
-      description: "Trend Vortex API",
-      contact: {
-        name: "Burcu İçen",
-      },
-    },
-    servers: [
-      {
-        url: process.env.BASE_URL || "http://localhost:3000",
-        //url: "http://localhost:3000",
-      },
-    ],
-    components: {
-      securitySchemes: {
-        Bearer: {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "JWT",
-        },
-      },
-    },
-  },
-  apis: ["./dist/routes/*.js"],
-};
-
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 

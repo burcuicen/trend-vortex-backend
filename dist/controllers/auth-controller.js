@@ -49,18 +49,22 @@ var AuthController = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 2, , 3]);
-                        _a = req.body, username = _a.username, password = _a.password, email = _a.email;
-                        return [4 /*yield*/, auth_service_1.default.register(username, password, email)];
+                        console.log(req);
+                        _b.label = 1;
                     case 1:
+                        _b.trys.push([1, 3, , 4]);
+                        _a = req.body, username = _a.username, password = _a.password, email = _a.email;
+                        console.log(username, password, email);
+                        return [4 /*yield*/, auth_service_1.default.register(username, password, email)];
+                    case 2:
                         user = _b.sent();
                         res.status(201).json(user);
-                        return [3 /*break*/, 3];
-                    case 2:
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_1 = _b.sent();
                         res.status(500).json({ message: error_1.message });
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

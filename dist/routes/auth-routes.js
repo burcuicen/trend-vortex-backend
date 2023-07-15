@@ -59,6 +59,8 @@ router.post("/register", auth_controller_1.default.register);
  *     responses:
  *       200:
  *         description: Returns a token
+ *       401:
+ *         description: Unauthorized
  *       500:
  *         description: Some server error
  */
@@ -67,11 +69,15 @@ router.post("/login", auth_controller_1.default.login);
  * @swagger
  * /auth/user:
  *   get:
+ *     security:
+ *       - Bearer: []
  *     summary: Get user info from token
  *     tags: [Auth]
  *     responses:
  *       200:
  *         description: The user info
+ *       401:
+ *         description: Unauthorized
  *       500:
  *         description: Some server error
  */

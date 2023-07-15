@@ -7,19 +7,22 @@ var express_1 = __importDefault(require("express"));
 var dotenv_1 = __importDefault(require("dotenv"));
 var cors_1 = __importDefault(require("cors"));
 var mongoose_1 = __importDefault(require("mongoose"));
-var swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 var swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+var bodyParser = require("body-parser");
+var swagger_config_1 = require("./swagger-config");
 var google_trends_routes_1 = __importDefault(require("./routes/google-trends-routes"));
 var auth_routes_1 = __importDefault(require("./routes/auth-routes"));
 dotenv_1.default.config();
 var app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Max-Age", "1800");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
     res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "content-type, Authorization"); // Include 'Authorization' header in allowed headers
     next();
 });
 var mongodbUri = process.env.MONGODB_URI;
@@ -36,28 +39,7 @@ if (mongodbUri) {
 else {
     console.error("MONGODB_URI environment variable not defined");
 }
-var swaggerOptions = {
-    swaggerDefinition: {
-        openapi: "3.0.0",
-        info: {
-            title: "Trend Vortex API",
-            version: "1.0.0",
-            description: "Trend Vortex API",
-            contact: {
-                name: "Burcu İçen",
-            },
-        },
-        servers: [
-            {
-                //url: process.env.BASE_URL || "http://localhost:3000",
-                url: "http://localhost:3000",
-            },
-        ],
-    },
-    apis: ["./dist/routes/*.js"],
-};
-var swaggerDocs = (0, swagger_jsdoc_1.default)(swaggerOptions);
-app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
+app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_config_1.swaggerDocs));
 app.use("/api", google_trends_routes_1.default);
 app.use("/auth", auth_routes_1.default);
 app.get("/", function (req, res) {

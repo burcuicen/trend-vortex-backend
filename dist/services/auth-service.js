@@ -104,16 +104,24 @@ var AuthService = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
+                        console.log(req.headers);
                         token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
-                        if (!token)
+                        if (!token) {
+                            console.log("No token provided");
                             return [2 /*return*/, null];
+                        }
                         decodedToken = jsonwebtoken_1.default.verify(token, JWT_SECRET);
                         return [4 /*yield*/, user_1.default.findById(decodedToken.userId)];
                     case 1:
                         user = _b.sent();
+                        if (!user) {
+                            console.log("No user found with the provided userId");
+                            return [2 /*return*/, null];
+                        }
                         return [2 /*return*/, user];
                     case 2:
                         error_3 = _b.sent();
+                        console.log("Error when verifying token or fetching user:", error_3);
                         throw new Error("Failed to get user from token");
                     case 3: return [2 /*return*/];
                 }
