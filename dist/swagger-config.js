@@ -18,9 +18,11 @@ var swaggerOptions = {
         },
         servers: [
             {
-                url: "http://localhost:3000",
-                //url: process.env.BASE_URL || "http://localhost:3000",
+                url: process.env.BASE_URL || "http://localhost:3000",
             },
+            //   {
+            //     url: process.env.BASE_URL,
+            //   },
         ],
         components: {
             securitySchemes: {

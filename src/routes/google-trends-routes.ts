@@ -9,6 +9,7 @@ const router = express.Router();
  * /api/interest-by-region:
  *   get:
  *     description: Get interest by region for a keyword in a specific time frame.
+ *     tags: [Google Trends]
  *     parameters:
  *       - in: query
  *         name: keyword
@@ -49,6 +50,7 @@ router.get("/interest-by-region", GoogleTrendsController.getInterestByRegion);
  * /api/interest-over-time:
  *   get:
  *     description: Get interest over time for a keyword in a specific time frame.
+ *     tags: [Google Trends]
  *     parameters:
  *       - in: query
  *         name: keyword
@@ -84,6 +86,7 @@ router.get("/interest-over-time", GoogleTrendsController.getInterestOverTime);
  * /api/real-time:
  *   get:
  *     description: Get real-time trend data for a specific geographic area.
+ *     tags: [Google Trends]
  *     parameters:
  *       - in: query
  *         name: geo
@@ -102,6 +105,7 @@ router.get("/real-time", GoogleTrendsController.getRealTimeTrends);
  * /api/related-queries:
  *   get:
  *     description: Get related queries for a keyword in a specific time frame.
+ *     tags: [Google Trends]
  *     parameters:
  *       - in: query
  *         name: keyword
@@ -137,6 +141,7 @@ router.get("/related-queries", GoogleTrendsController.getRelatedQueries);
  * /api/related-topics:
  *   get:
  *     description: Get related topics for a keyword in a specific time frame.
+ *     tags: [Google Trends]
  *     parameters:
  *       - in: query
  *         name: keyword
@@ -172,6 +177,7 @@ router.get("/related-topics", GoogleTrendsController.getRelatedTopics);
  * /api/daily-trends:
  *   get:
  *     description: Get daily trends for a specific geographic area.
+ *     tags: [Google Trends]
  *     parameters:
  *       - in: query
  *         name: geo
