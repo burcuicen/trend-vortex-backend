@@ -13,11 +13,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: process.env.BASE_URL || "http://localhost:3000",
+        url:'http://51.20.135.246:27005',
       },
-      //   {
-      //     url: process.env.BASE_URL,
-      //   },
     ],
     components: {
       securitySchemes: {
