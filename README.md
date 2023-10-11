@@ -7,6 +7,7 @@ This project provides a Node.js service for interacting with the Google Trends A
 The base URL for all API requests is: `https://trend-vortex-backend.herokuapp.com/api`
 The swagger documentation for the API can be found at: `https://trend-vortex-backend.herokuapp.com/api-docs`
 
+
 ## API Routes
 
 ### GET /interest-by-region
