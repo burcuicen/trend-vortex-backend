@@ -13,7 +13,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url:'http://51.20.135.246:27005',
+        url:'trendvortex.tech',
+      },
+      {
+        url:'localhost:3000',
       },
     ],
     components: {
