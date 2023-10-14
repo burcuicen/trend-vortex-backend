@@ -13,7 +13,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url:'trendvortex.tech',
+        url:'https://trend-vortex-backend.azurewebsites.net/',
       },
       {
         url:'localhost:3000',
