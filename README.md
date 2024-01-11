@@ -19,7 +19,6 @@ Parameters:
 - `keyword` (required): The search term or keyword to retrieve interest data for.
 - `startTime` (optional): The start date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
 - `endTime` (optional): The end date of the time range to retrieve data for. Format: `YYYY-MM-DD`.
-- `geo` (optional): The geographic location to retrieve data for. For example, `US` for United States.
 - `resolution` (optional): The level of geographic granularity. Possible values: `CITY`, `COUNTRY`, `REGION`.
 
 ### GET /interest-over-time
