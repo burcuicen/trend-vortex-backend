@@ -2,6 +2,9 @@
 
 This project provides a Node.js service for interacting with the Google Trends API. It allows you to fetch various types of data such as interest over time, interest by region, daily trends, real-time trends, related queries, and related topics.
 
+## Important Announcement
+
+> :warning: **Update:** As of now, Google no longer provides support for the Google Trends data. This may affect the functionality of this service. The code is still available for examination and use, but please be aware that some features might not work as expected.
 ## Base URL
 
 The base URL for all API requests is: `https://trend-vortex-backend.azurewebsites.net/api`
